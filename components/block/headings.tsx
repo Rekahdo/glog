@@ -166,7 +166,7 @@ export function H1(props: TitleProps) {
 }
 
 export function H2(props: TitleProps) {
-    return <Heading level={2} {...props} align={"center"} />;
+    return <Heading level={2} {...props} />;
 }
 
 export function H3(props: TitleProps) {

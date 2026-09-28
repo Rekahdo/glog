@@ -44,7 +44,7 @@ function HeaderLeft({ children }: { children?: ReactNode }) {
 
 function HeaderCenter({ children }: { children?: ReactNode }) {
   return (
-    <HeaderGroup className={"mx-auto w-full"} gap={"sm"}>
+    <HeaderGroup className={"mx-auto w-full px-4"} gap={"sm"}>
       {children}
     </HeaderGroup>
   );

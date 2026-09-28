@@ -8,9 +8,14 @@ export function windowTheme(): MediaQueryList | null {
 export function themeIsDark(): boolean {
   if (typeof window === "undefined") return false;
 
-  const storedTheme = localStorage.getItem("dark");
+  const root = getRootDocument();
+  if (root?.classList.contains("dark")) {
+    return true;
+  }
+
+  const storedTheme = localStorage.getItem("theme") ?? localStorage.getItem("dark");
   if (storedTheme !== null) {
-    return storedTheme === "true";
+    return storedTheme === "dark" || storedTheme === "true";
   }
 
   return windowTheme()?.matches ?? false;

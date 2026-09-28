@@ -7,9 +7,9 @@ export function Logo() {
     const light = "/logo.svg";
     const dark = "/logo-dark.svg";
     const alt = "Rekahdo.dev Logo";
-
+    
     return (
-        <Link href="/">
+        <Link href="/" tabIndex={1}>
             <Image className={cn("cursor-pointer text-foreground")}
                 src={light} darkSrc={dark} alt={alt} size={"xs"} />
         </Link>
