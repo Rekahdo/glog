@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from "react";
-import { getRootDocument, themeIsDark, windowTheme } from "@/lib/utils";
+import { ReactNode, useEffect, useState } from "react";
+import { cn, getRootDocument, themeIsDark, windowTheme } from "@/lib/utils";
 import { Switch } from "../ui/switch";
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -54,7 +54,7 @@ export function ModeToggle({ className }: { className?: string }) {
 
     return (
         <Switch checked={checked} onCheckedChange={handleToggle}
-            className={className} variant={"inner"} size={"lg"} />
+            className={className} />
     )
 }
 
@@ -91,5 +91,72 @@ export function ThemeToggle() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+    )
+}
+
+
+
+
+// =======================================================================
+// =======================================================================
+// =======================================================================
+
+
+
+type MultiToggleType = {
+    text: string;
+    icon?: ReactNode;
+}
+
+type MultiToggleProps = {
+    rootToggle?: boolean;
+    selectIndex?: number;
+    toggles: MultiToggleType[]
+    className?: string;
+    showTextAt?: "all" | "sm" | "md" | "lg";
+    onChange?: (index: number) => void;
+}
+
+export function MultiToggle({ 
+    selectIndex=0, 
+    toggles, onChange, 
+    showTextAt, 
+    className,
+    rootToggle=false,
+}: MultiToggleProps) {
+    
+    const [selected, setSelected] = useState<number>(selectIndex)
+
+    useEffect(() => {
+        onChange?.(selected);
+    }, [selected])
+
+    function toggle(id?: number) {
+        rootToggle 
+        ? setSelected(s => s+1 < toggles.length ? s+1 : 0)
+        : setSelected(id!);
+    }
+
+    return (
+        <div onClick={rootToggle ? () => toggle() : undefined}
+            className={cn(
+                "inline-flex items-center gap-1 rounded-full text-foreground",
+                "border border-border/60 bg-background/80 dark:bg-background/40 p-1 backdrop-blur-md",
+                className
+            )}>
+
+            {toggles.map((btn, index) =>
+                <Button
+                    key={`${btn.text}-${index}`}
+                    aria-selected={index === selected}
+                    variant={index === selected ? "default" : "ghost"}
+                    className={cn("rounded-full")}
+                    onClick={rootToggle ? undefined : () => toggle(index)}
+                >
+                    {btn.icon} <span className="hidden sm:inline">{btn.text}</span>
+                </Button>)
+            }
+
+        </div>
     )
 }

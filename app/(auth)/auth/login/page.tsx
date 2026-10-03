@@ -1,8 +1,6 @@
 'use client'
 
 import { LoginSchema } from "@/app/schemas/auth";
-import { SignUpBtn } from "@/components/block/auth-btns";
-import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -12,10 +10,10 @@ import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { ErrorType } from "../layout";
-import { H2 } from "@/components/block/headings";
 import { useTransition } from "react";
-import { Loader, Loader2 } from "lucide-react";
+import { ErrorType } from "@/lib/types";
+import { H2 } from "@/components/shared-ui/headings";
+import { ButtonImpl, SignUpBtn } from "@/components/implementions/button-impl";
 
 interface PageProps {
 }
@@ -82,12 +80,7 @@ export default function Login(props: PageProps) {
                                 </Field>
                             )}
                         />
-                        <Button disabled={isPending} type="submit">{isPending ? (
-                            <>
-                                <Loader className="size-4 animate-spin" />
-                                <span>Loading...</span>
-                            </>
-                        ) : "Login"}</Button>
+                        <ButtonImpl isPending={isPending} type="submit" text="Login" />
                     </FieldGroup>
                 </form>
             </CardContent>

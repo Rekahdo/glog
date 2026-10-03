@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/web/navbar";
+import { HeaderSection } from "@/components/sections/header-section";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -9,7 +9,7 @@ export default function Layout(props: LayoutProps) {
 
     return (
         <section>
-            <Navbar />
+            <HeaderSection/>
             {props.children}
         </section>
     );

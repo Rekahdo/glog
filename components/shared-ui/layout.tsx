@@ -5,7 +5,7 @@ import { align, justify } from "./_css";
 
 
 const flexVariants = cva(cn
-    ("flex max-lg:gap-6 lg:gap-8 text-foreground"),
+    ("flex max-lg:gap-4 lg:gap-8 text-foreground"),
     {
         variants: {
             direction: {
@@ -105,14 +105,12 @@ export function Flex({
                 direction, xsDirection, smDirection, mdDirection, lgDirection,
             }), className)}>
 
-            {top &&
-                <div className={cn(flexTopVariants({
-                    position, xsPosition, smPosition,
-                    mdPosition, lgPosition
-                }), topClassName)}>
-                    {top}
-                </div>
-            }
+            <div className={cn(flexTopVariants({
+                position, xsPosition, smPosition,
+                mdPosition, lgPosition
+            }), topClassName)}>
+                {top}
+            </div>
 
             {bottom &&
                 <div className={cn("flex items-center justify-center", bottomClassName)}>
@@ -163,6 +161,7 @@ const gridVariants = cva(cn
 type GridCompType = VariantProps<typeof gridVariants>
     & VariantProps<typeof flexTopVariants> &
 {
+    children?: ReactNode;
     className?: string;
     top: ReactNode;
     topClassName?: string;
@@ -172,6 +171,7 @@ type GridCompType = VariantProps<typeof gridVariants>
 }
 
 export function Grid({
+    children,
     className,
     top, topClassName,
     bottom, bottomClassName,
@@ -187,20 +187,20 @@ export function Grid({
                 cols, xsCols, smCols, mdCols, lgCols,
             }), className)}>
 
-            {top &&
-                <div className={cn(flexTopVariants({
-                    position, xsPosition, smPosition,
-                    mdPosition, lgPosition
-                }), topClassName)}>
-                    {top}
-                </div>
-            }
+            <div className={cn(flexTopVariants({
+                position, xsPosition, smPosition,
+                mdPosition, lgPosition
+            }), topClassName)}>
+                {top}
+            </div>
 
             {bottom &&
                 <div className={cn("flex items-center justify-center", bottomClassName)}>
                     {bottom}
                 </div>
             }
+            
+            {children}
         </Tag>
     )
 }

@@ -7,9 +7,9 @@ import { useEffect, useState, type ReactNode } from "react";
 import { cn } from "cn";
 import { useWidthMedia } from "../../hooks/useMedia";
 import { navigationLinkVariants, NavigationProps, navlinks } from "./navigation";
-import { AnchorBtn, PageBtn } from "./buttons";
+import { AnchorBtn, PageBtn } from "../implementions/button-impl";
 
-const sideBarVariants = cva(
+const sideSheetVariants = cva(
     "",
     {
         variants: {
@@ -22,7 +22,7 @@ const sideBarVariants = cva(
     }
 )
 
-const sideBarTriggerVariants = cva(
+const sideSheetTriggerVariants = cva(
     cn(
         "inline-flex items-center justify-center rounded-md p-2",
         "transition-colors focus-visible:outline-none focus-visible:ring-2",
@@ -42,10 +42,8 @@ const sideBarTriggerVariants = cva(
     }
 );
 
-const showSideBarAtStyle = cn();
-
-type SideBarType = VariantProps<typeof sideBarVariants> &
-    VariantProps<typeof sideBarTriggerVariants> & NavigationProps & {
+type SideBarType = VariantProps<typeof sideSheetVariants> &
+    VariantProps<typeof sideSheetTriggerVariants> & NavigationProps & {
         side?: "left" | "top" | "right" | "bottom";
         trigger?: ReactNode;
         triggerLabel?: string;
@@ -58,7 +56,7 @@ type SideBarType = VariantProps<typeof sideBarVariants> &
         navClassName?: string;
     }
 
-export function SideBar({
+export function SideSheet({
     size,
     side = "left",
     trigger = <Menu />,
@@ -76,18 +74,18 @@ export function SideBar({
     const [open, setOpen] = useState(false)
     const [hold, setHold] = useState(false)
     const [nav] = useState(navlinks)
-    const { mlg } = useWidthMedia();
+    const { md } = useWidthMedia();
 
     useEffect(() => {
         setHold(false);
     }, [])
 
     useEffect(() => {
-        if (mlg && open && hold)
+        if (md && open && hold)
             setOpen(false)
-        if (hold && !mlg)
+        if (hold && !md)
             setOpen(true)
-    }, [mlg, open]);
+    }, [md, open]);
 
     function openSheet(value: boolean) {
         if (value) setHold(value);
@@ -102,14 +100,14 @@ export function SideBar({
             <Sheet open={open} onOpenChange={openSheet}>
                 <SheetTrigger
                     aria-label={triggerLabel}
-                    className={cn(sideBarTriggerVariants({ size }), "ms-0 sm:ms-2")}>
+                    className={cn(sideSheetTriggerVariants({ size }), "ms-0 sm:ms-2")}>
                     {trigger}
                 </SheetTrigger>
 
                 <SheetContent
                     showCloseButton={false}
                     side={side}
-                    className={cn(sideBarVariants({ className }))}>
+                    className={cn(sideSheetVariants({ className }), "")}>
                     {(logo || top || title || description || nav.links) &&
                         <SheetHeader className="pt-2">
                             {logo &&
@@ -131,13 +129,13 @@ export function SideBar({
                                 className={cn("flex flex-col", navClassName)}>
 
                                 {nav.pageLink && nav.links.map((link, i) => (
-                                    <PageBtn key={`${link.text}-${i}`} onClick={() => openSheet(false)} {...link} variant={"ghost"} 
-                                        className={cn(navigationLinkVariants({...navigationProps}))} />
+                                    <PageBtn key={`${link.text}-${i}`} onClick={() => openSheet(false)} {...link} variant={"ghost"}
+                                        className={cn(navigationLinkVariants({ ...navigationProps }))} />
                                 ))}
 
                                 {!nav.pageLink && nav.links.map((link, i) => (
-                                    <AnchorBtn key={`${link.text}-${i}`} onClick={() => openSheet(false)} {...link} variant={"ghost"} 
-                                        className={cn(navigationLinkVariants({...navigationProps}))} />
+                                    <AnchorBtn key={`${link.text}-${i}`} id={link.href} onClick={() => openSheet(false)} {...link} 
+                                        variant={"ghost"} className={cn(navigationLinkVariants({ ...navigationProps }))} />
                                 ))}
                             </nav>
                         </SheetHeader>
