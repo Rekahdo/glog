@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import z from "zod";
 import { useTransition } from "react";
 import { H2 } from "@/components/shared-ui/headings";
-import { ButtonImpl, LoginBtn } from "@/components/implementions/button-impl";
+import { ButtonImpl, LoginBtn } from "@/components/shared-ui/button-impl";
 import { ErrorType } from "@/lib/types";
 
 interface PageProps {
@@ -55,10 +55,10 @@ export default function Page(props: PageProps) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle><H2 title="Sign Up" /></CardTitle>
+                <CardTitle><H2 title="Sign Up"/></CardTitle>
                 <CardDescription>Create an account to get started</CardDescription>
                 <CardAction>
-                    <LoginBtn variant={'ghost'} showIcon={false}/>
+                    <LoginBtn variant={'ghost'} showIcon={false} />
                 </CardAction>
             </CardHeader>
             <CardContent>

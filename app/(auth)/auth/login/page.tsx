@@ -13,7 +13,7 @@ import z from "zod";
 import { useTransition } from "react";
 import { ErrorType } from "@/lib/types";
 import { H2 } from "@/components/shared-ui/headings";
-import { ButtonImpl, SignUpBtn } from "@/components/implementions/button-impl";
+import { ButtonImpl, SignUpBtn } from "@/components/shared-ui/button-impl";
 
 interface PageProps {
 }

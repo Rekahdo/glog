@@ -5,9 +5,9 @@ import { Container } from "../shared-ui/container";
 import { Header } from "../shared-ui/header";
 import { Logo } from "../shared-ui/logo";
 import { Navigation } from "../shared-ui/navigation";
-import { ThemeToggle } from "../shared-ui/toggle";
 import { cn } from "cn";
-import { LoginBtn, LogoutBtn, SignUpBtn } from "../implementions/button-impl";
+import { LoginBtn, LogoutBtn, SignUpBtn } from "../shared-ui/button-impl";
+import { ThemeToggle } from "../shared-ui/toggle";
 
 export const HeaderSection = () => {
 
@@ -29,25 +29,21 @@ export const HeaderSection = () => {
                 }
 
                 headerCenter={
-                    <Navigation width={"sm"} gap={"none"} className="max-mlg:hidden" />
+                    <Navigation width={"sm"} gap={"none"} className="max-md:hidden" />
                 }
 
                 headerRight={
                     <>
                         <SignUpBtn />
-                        <LoginBtn className={"max-sm:hidden"} />
-                        <LogoutBtn />
-                        <ThemeToggle />
+                        <LoginBtn showTextAt="sm" variant={'outline'} />
+                        <LogoutBtn showTextAt={'sm'} />
+                        <ThemeToggle className="max-sm:hidden" />
+                        <SideSheet
+                            width="full"
+                            height="lg"
+                            gap="none"
+                        />
                     </>
-                }
-
-                sidebar={
-                    <SideSheet
-                        logo={<Logo />}
-                        width="full"
-                        height="lg"
-                        gap="none"
-                    />
                 }
             />
         </Container>

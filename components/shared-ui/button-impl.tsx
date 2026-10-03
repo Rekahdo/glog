@@ -27,7 +27,6 @@ interface ButtonImplProps extends VariantProps<typeof buttonVariants> {
 }
 
 type RenderType = {
-    anchor?: boolean;
     download?: boolean;
     scroll?: boolean;
     open?: boolean;
@@ -55,7 +54,6 @@ export function ButtonImpl({
     pendingState = text,
     isDisabled,
     showTextAt = 'all',
-    anchor,
     download,
     scroll,
     open,
@@ -79,11 +77,12 @@ export function ButtonImpl({
     };
 
     const isButton = (Boolean(type) || !Boolean(href) || isDisabled || isPending)
-    const isOpenLink = (!isButton && !isPending && open)
-    const isDownloadFile = (!isButton && download)
-    const isScrollToID = (!isButton && scroll)
+    const isAnchorTag = (!isButton && (download || scroll || open))
+    const isOpenLink = (isAnchorTag && open)
+    const isDownloadFile = (isAnchorTag && download)
+    const isScrollToID = (isAnchorTag && scroll)
 
-    const Tag: ElementType = (isButton ? 'button' : (anchor ? 'a' : Link));
+    const Tag: ElementType = (isButton ? 'button' : (isAnchorTag ? 'a' : Link));
     const buttonAttributes = isButton ? { type: type } : {};
     const hrefAttributes = !isButton ? { href: href } : {};
     const openAttributes = isOpenLink ? { target: "_blank", rel: "noopener noreferrer" } : {};
@@ -127,11 +126,11 @@ export function PageBtn(props: ButtonImplProps) {
 }
 
 export function AnchorBtn({ id, ...props }: { id: string } & Omit<ButtonImplProps, 'href'>) {
-    return <ButtonImpl href={id} {...props} anchor scroll />;
+    return <ButtonImpl href={id} {...props} scroll />;
 }
 
 export function OpenBtn({ icon = <ExternalLink />, ...props }: ButtonImplProps) {
-    return <ButtonImpl icon={icon} className="shadow-md" {...props} anchor open />;
+    return <ButtonImpl icon={icon} className="shadow-md" {...props} open />;
 }
 
 export function SignUpBtn(props: ButtonImplProps) {
@@ -159,7 +158,7 @@ export function LoginBtn(props: ButtonImplProps) {
     )
 }
 
-export function LogoutBtn(props: VariantProps<typeof buttonVariants>) {
+export function LogoutBtn(props: ButtonImplProps) {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
 
