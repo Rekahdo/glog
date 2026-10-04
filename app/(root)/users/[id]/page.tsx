@@ -2,7 +2,7 @@ interface PageProps {
     params: Promise<{ id: number }>;
 }
 
-export default async function User(props: PageProps) {
+export default async function UserRoute(props: PageProps) {
 
     const { id } = await props.params;
 

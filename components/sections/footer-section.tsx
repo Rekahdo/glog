@@ -6,8 +6,12 @@ interface FooterProps {
 
 export function Footer(props: FooterProps) {
     return (
-        <Container id="footer" as={"footer"}
-            className="bg-blue-900 py-10"
+        <Container 
+            id="footer" 
+            as={"footer"}
+            width={'w400'}
+            py={'section'}
+            background={'secondary'}
         >
             <footer>THIS IS OUR FOOTER</footer>
         </Container>

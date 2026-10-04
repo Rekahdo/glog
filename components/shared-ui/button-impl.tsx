@@ -1,4 +1,4 @@
-import { VariantProps } from "class-variance-authority";
+import { cva, VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import Link from "next/link";
 import { ButtonHTMLAttributes, ElementType, MouseEvent, ReactNode, useTransition } from "react";
@@ -10,7 +10,23 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { ErrorType } from "@/lib/types";
 
-interface ButtonImplProps extends VariantProps<typeof buttonVariants> {
+const buttonImplVariants = cva(
+    cn("flex gap-2 "),
+    {
+        variants: {
+            width: {
+                full: "w-full",
+            },
+            height: {
+                md: "h-10",
+                lg: "h-12",
+            }
+        }
+    }
+)
+
+interface ButtonImplProps extends VariantProps<typeof buttonVariants>,
+    VariantProps<typeof buttonImplVariants> {
     href?: string;
     text?: ReactNode;
     filename?: string;
@@ -58,6 +74,8 @@ export function ButtonImpl({
     scroll,
     open,
     type,
+    width,
+    height,
     ...btnProps
 }: ButtonImplProps & RenderType & ButtonHTMLAttributes<typeof HTMLButtonElement>) {
 
@@ -103,7 +121,8 @@ export function ButtonImpl({
             {...scrollAttributes}
             className={cn(
                 buttonVariants({ ...btnProps }),
-                "flex gap-2", className,
+                buttonImplVariants({ width, height }),
+                className,
             )}
         >
             {(showIcon && side === 'left') && btnIcon()}

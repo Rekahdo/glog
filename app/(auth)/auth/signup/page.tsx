@@ -18,7 +18,7 @@ import { ErrorType } from "@/lib/types";
 interface PageProps {
 }
 
-export default function Page(props: PageProps) {
+export default function SignUpRoute(props: PageProps) {
 
 
     const [isPending, startTransition] = useTransition();
@@ -94,7 +94,7 @@ export default function Page(props: PageProps) {
                             )}
                         />
 
-                        <ButtonImpl type="submit" isPending={isPending} text="Login" />
+                        <ButtonImpl type="submit" isPending={isPending} text="Login" height={'md'} />
                     </FieldGroup>
                 </form>
             </CardContent>

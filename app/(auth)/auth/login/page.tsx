@@ -18,7 +18,7 @@ import { ButtonImpl, SignUpBtn } from "@/components/shared-ui/button-impl";
 interface PageProps {
 }
 
-export default function Login(props: PageProps) {
+export default function LoginRoute(props: PageProps) {
 
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
@@ -80,7 +80,7 @@ export default function Login(props: PageProps) {
                                 </Field>
                             )}
                         />
-                        <ButtonImpl isPending={isPending} type="submit" text="Login" />
+                        <ButtonImpl isPending={isPending} type="submit" text="Login" height={'md'} />
                     </FieldGroup>
                 </form>
             </CardContent>

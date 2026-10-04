@@ -9,7 +9,7 @@ import { Authenticated } from "convex/react";
 export const navlinks: ReactElement[] = [
     <ButtonImpl text={"Home"} href="/" variant={"ghost"} />,
     <ButtonImpl text={"Blogs"} href="/blogs" variant={"ghost"} />,
-    <Authenticated><ButtonImpl text={"Create"} href="/blogs/create" variant={"ghost"} /></Authenticated>,
+    <Authenticated><ButtonImpl text={"Create"} href="/create" variant={"ghost"} /></Authenticated>,
 ];
 
 const navigationVariants = cva(

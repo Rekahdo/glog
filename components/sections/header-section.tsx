@@ -15,12 +15,10 @@ export const HeaderSection = () => {
         <Container
             id="header"
             as={"header"}
+            width={'w400'}
             height={'header'}
             sticky={'top'}
             background={'background'}
-            innerClassName={cn(
-                "max-w-400",
-            )}
         >
 
             <Header
@@ -29,7 +27,7 @@ export const HeaderSection = () => {
                 }
 
                 headerCenter={
-                    <Navigation width={"sm"} gap={"none"} className="max-md:hidden" />
+                    <Navigation width={"sm"} gap={"none"} className="max-md:hidden" justify={'start'} />
                 }
 
                 headerRight={
